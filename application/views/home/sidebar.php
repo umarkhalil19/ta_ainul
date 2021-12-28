@@ -15,7 +15,7 @@
                                 </span></a></li>
                     </ul>
                 </li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('Diganosa') ?>" aria-expanded="false"><i class="mdi mdi-check-all"></i><span class="hide-menu">Diagnosa</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('Diagnosa') ?>" aria-expanded="false"><i class="mdi mdi-check-all"></i><span class="hide-menu">Diagnosa</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('Users') ?>" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Users</span></a></li>
             </ul>
         </nav>

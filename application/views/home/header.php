@@ -13,6 +13,9 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/assets/images/favicon.png">
     <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/assets/libs/select2/dist/css/select2.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/assets/libs/quill/dist/quill.snow.css"> -->
     <link href="<?= base_url() ?>assets/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= base_url() ?>assets/dist/css/style.min.css" rel="stylesheet">
