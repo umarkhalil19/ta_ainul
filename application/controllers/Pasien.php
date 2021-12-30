@@ -13,6 +13,19 @@ class Pasien extends CI_Controller
 
     public function index()
     {
-        $this->mylib->view('pasien');
+        $data['pasien'] = $this->m_vic->get_data('pasien');
+        $this->mylib->view('pasien', $data);
+    }
+
+    public function pasien_detail($id = 0)
+    {
+        if ($id == 0) {
+            $this->session->set_flashdata('error', "Data tidak ditemukan");
+            redirect('Pasien?notif=error');
+        } else {
+            $data['pasien'] = $this->m_vic->edit_data(['id' => $id], 'pasien')->row();
+            $data['gejala'] = $this->m_vic->edit_data(['pasien_id' => $id], 'pasien_gejala');
+            $this->mylib->view('pasien_detail', $data);
+        }
     }
 }

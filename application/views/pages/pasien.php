@@ -6,6 +6,11 @@
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
                 <h4 class="page-title">Pasien</h4>
+                <div class="ms-auto text-end">
+                    <nav aria-label="breadcrumb">
+                        <a href="<?= base_url('Diagnosa') ?>" class="float-right btn btn-md btn-info"><i class="mdi mdi-plus-circle"> </i>Diagnosa</a>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -19,6 +24,8 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
+        <?php if (isset($_GET['notif'])) : _notif($this->session->flashdata($_GET['notif']));
+        endif; ?>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -31,13 +38,28 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Umur</th>
-                                        <th>Gejala</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($pasien->result() as $p) :
+                                    ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= $p->nama ?></td>
+                                            <td><?= $p->usia ?></td>
+                                            <td><?= $p->jenis_kelamin ?></td>
+                                            <td>
+                                                <a href="<?= base_url('Pasien/pasien_detail/' . $p->id) ?>" class="badge bg-success">Detail</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>

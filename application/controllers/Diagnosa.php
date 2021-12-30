@@ -83,29 +83,33 @@ class Diagnosa extends CI_Controller
                         array_push($array_bobot, 0);
                     }
                 }
-                $cek_0 = in_array(0, $array_bobot, true);
-                if ($cek_0 == false) {
-                    $sum = array_sum($array_bobot);
-                    for ($i = 0; $i < count($array_bobot); $i++) {
-                        $nilai_e = $array_bobot[$i] / $sum;
-                        $nilai_e = $nilai_e * $array_bobot[$i];
-                        array_push($array_e, $nilai_e);
-                    }
-                    $sum = array_sum($array_e);
-                    for ($i = 0; $i < count($array_e); $i++) {
-                        $nilai_bayes = $array_e[$i] / $sum;
-                        $nilai_bayes = $nilai_bayes * $array_bobot[$i];
-                        array_push($array_bayes, $nilai_bayes);
-                    }
-                    array_push($array_total, array_sum($array_bayes) * 100);
-                    array_push($array_penyakit, $p->id);
-                } else {
-                    continue;
+                // $cek_0 = in_array(0, $array_bobot, true);
+                // if ($cek_0 == false) {
+                $sum = array_sum($array_bobot);
+                for ($i = 0; $i < count($array_bobot); $i++) {
+                    $nilai_e = $array_bobot[$i] / $sum;
+                    $nilai_e = $nilai_e * $array_bobot[$i];
+                    array_push($array_e, $nilai_e);
                 }
-                // echo "<pre>";
-                // print_r($array_bobot);
-                // echo "</pre>";
+                $sum = array_sum($array_e);
+                for ($i = 0; $i < count($array_e); $i++) {
+                    $nilai_bayes = $array_e[$i] / $sum;
+                    $nilai_bayes = $nilai_bayes * $array_bobot[$i];
+                    array_push($array_bayes, $nilai_bayes);
+                }
+                array_push($array_total, array_sum($array_bayes) * 100);
+                array_push($array_penyakit, $p->id);
+                // } else {
+                //     continue;
+                // }
             }
+
+            // echo "<pre>";
+            // print_r($array_total);
+            // echo "</pre>";
+            // echo "<pre>";
+            // print_r($array_penyakit);
+            // echo "</pre>";
             $max = array_keys($array_total, max($array_total));
             $index = $max[0];
             $nama = $this->db->select('nama')->get_where('penyakit', ['id' => $array_penyakit[$index]])->row();
@@ -120,45 +124,4 @@ class Diagnosa extends CI_Controller
             redirect('Diagnosa');
         }
     }
-
-    // public function gejala_add()
-    // {
-    //     $this->mylib->view('gejala_add');
-    // }
-
-
-    // public function gejala_edit($id = 0)
-    // {
-    //     if ($id == 0) {
-    //         $this->session->set_flashdata('error', 'Data yang anda maksud tidak ditemukan');
-    //         redirect('Gejala?notif=error');
-    //     } else {
-    //         $data['gejala'] = $this->m_vic->edit_data(['id' => $id], 'gejala')->row();
-    //         $this->mylib->view('gejala_edit', $data);
-    //     }
-    // }
-
-    // public function gejala_update($id = 0)
-    // {
-    //     $id = $this->input->post('id');
-    //     $data = [
-    //         'nama' => $this->input->post('nama'),
-    //         'kode' => $this->input->post('kode')
-    //     ];
-    //     $this->m_vic->update_data(['id' => $id], $data, 'gejala');
-    //     $this->session->set_flashdata('suces', 'Data gejala berhasil diubah');
-    //     redirect('Gejala?notif=suces');
-    // }
-
-    // public function gejala_delete($id = 0)
-    // {
-    //     if ($id == 0) {
-    //         $this->session->set_flashdata('error', 'Data yang anda maksud tidak ditemukan');
-    //         redirect('Gejala?notif=error');
-    //     } else {
-    //         $this->m_vic->delete_data(['id' => $id], 'gejala');
-    //         $this->session->set_flashdata('suces', 'Data gejala berhasil dihapus');
-    //         redirect('Gejala?notif=suces');
-    //     }
-    // }
 }
