@@ -51,7 +51,7 @@
                                             <td><?= $p->kode ?></td>
                                             <td>
                                                 <a href="<?= base_url('Gejala/gejala_edit/' . $p->id) ?>" class="badge rounded-pill bg-info" title="Ubah Data">Ubah</a>
-                                                <a href="<?= base_url('Gejala/gejala_delete/' . $p->id) ?>" class="badge rounded-pill bg-danger" title="Hapus Data">Hapus</a>
+                                                <a href="<?= base_url('Gejala/gejala_delete/' . $p->id) ?>" onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?');" class="badge rounded-pill bg-danger" title="Hapus Data">Hapus</a>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>

@@ -50,7 +50,7 @@
                                             <td>
                                                 <a href="<?= base_url('Penyakit/penyakit_gejala/' . $p->id) ?>" class="badge rounded-pill bg-success" title="Ubah Data">Gejala</a>
                                                 <a href="<?= base_url('Penyakit/penyakit_edit/' . $p->id) ?>" class="badge rounded-pill bg-info" title="Ubah Data">Ubah</a>
-                                                <a href="<?= base_url('Penyakit/penyakit_delete/' . $p->id) ?>" class="badge rounded-pill bg-danger" title="Hapus Data">Hapus</a>
+                                                <a href="<?= base_url('Penyakit/penyakit_delete/' . $p->id) ?>" onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?');" class="badge rounded-pill bg-danger" title="Hapus Data">Hapus</a>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>

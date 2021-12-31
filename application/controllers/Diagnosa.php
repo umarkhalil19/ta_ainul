@@ -104,12 +104,6 @@ class Diagnosa extends CI_Controller
                 // }
             }
 
-            // echo "<pre>";
-            // print_r($array_total);
-            // echo "</pre>";
-            // echo "<pre>";
-            // print_r($array_penyakit);
-            // echo "</pre>";
             $max = array_keys($array_total, max($array_total));
             $index = $max[0];
             $nama = $this->db->select('nama')->get_where('penyakit', ['id' => $array_penyakit[$index]])->row();
