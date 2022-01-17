@@ -83,33 +83,62 @@ class Diagnosa extends CI_Controller
                         array_push($array_bobot, 0);
                     }
                 }
-                // $cek_0 = in_array(0, $array_bobot, true);
-                // if ($cek_0 == false) {
-                $sum = array_sum($array_bobot);
-                for ($i = 0; $i < count($array_bobot); $i++) {
-                    $nilai_e = $array_bobot[$i] / $sum;
-                    $nilai_e = $nilai_e * $array_bobot[$i];
-                    array_push($array_e, $nilai_e);
+                $cek_0 = in_array(0, $array_bobot, true);
+                if ($cek_0 == false) {
+                    $sum = array_sum($array_bobot);
+                    for ($i = 0; $i < count($array_bobot); $i++) {
+                        $nilai_e = $array_bobot[$i] / $sum;
+                        $nilai_e = $nilai_e * $array_bobot[$i];
+                        array_push($array_e, $nilai_e);
+                    }
+                    $sum = array_sum($array_e);
+                    for ($i = 0; $i < count($array_e); $i++) {
+                        $nilai_bayes = $array_e[$i] / $sum;
+                        $nilai_bayes = $nilai_bayes * $array_bobot[$i];
+                        array_push($array_bayes, $nilai_bayes);
+                    }
+                    array_push($array_total, array_sum($array_bayes) * 100);
+                    array_push($array_penyakit, $p->id);
+                } else {
+                    continue;
                 }
-                $sum = array_sum($array_e);
-                for ($i = 0; $i < count($array_e); $i++) {
-                    $nilai_bayes = $array_e[$i] / $sum;
-                    $nilai_bayes = $nilai_bayes * $array_bobot[$i];
-                    array_push($array_bayes, $nilai_bayes);
-                }
-                array_push($array_total, array_sum($array_bayes) * 100);
-                array_push($array_penyakit, $p->id);
-                // } else {
-                //     continue;
-                // }
             }
-
+            if (count($array_total) <= 0) {
+                $this->m_vic->delete_data(['pasien_id' => $id], 'pasien_gejala');
+                $this->m_vic->delete_data(['pasien_id' => $id], 'pasien');
+                $this->session->set_flashdata('error', 'Data yang anda masukkan tidak cukup untuk dilakukan Diagnosa');
+                redirect('Diagnosa?notif=error');
+            }
             $max = array_keys($array_total, max($array_total));
             $index = $max[0];
             $nama = $this->db->select('nama')->get_where('penyakit', ['id' => $array_penyakit[$index]])->row();
             $data = [
                 'nilai_diagnosa' => $array_total[$index],
                 'penyakit' => $nama->nama
+            ];
+            $this->m_vic->update_data(['id' => $id], $data, 'pasien');
+            $p_nilai = "";
+            $p_id = "";
+            if (count($array_total) >= 3) {
+                $cari = 3;
+            } else {
+                $cari = count($array_total);
+            }
+            // echo $cari;
+            // die;
+            for ($i = 0; $i < $cari; $i++) {
+                $max = array_keys($array_total, max($array_total));
+                $index = $max[0];
+                $p_nilai .= ',' . $array_total[$index];
+                $p_id .= ',' . $array_penyakit[$index];
+                // array_push($array_nilai, $array_total[$index]);
+                // array_push($array_id, $array_penyakit[$index]);
+                unset($array_penyakit[$index]);
+                unset($array_total[$index]);
+            }
+            $data = [
+                'array_nilai' => substr($p_nilai, 1),
+                'array_id' => substr($p_id, 1)
             ];
             $this->m_vic->update_data(['id' => $id], $data, 'pasien');
             $data['pasien'] = $this->m_vic->edit_data(['id' => $id], 'pasien')->row();

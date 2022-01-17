@@ -49,8 +49,34 @@
                                     <hr>
                                     <p>Hasil Uji Sistem :</p>
                                     <hr>
-                                    <font style="margin-left: 1cm;">Persentase : <strong><?= number_format((float)$pasien->nilai_diagnosa, 2, '.', '') ?>%</strong></font><br>
-                                    <font style="margin-left: 1cm;">Penyakit : <strong><?= $pasien->penyakit ?></strong></font>
+                                    <div class="col-md-6" style="margin-left: 1cm;">
+                                        <table class="table table-bordered table-striped" border="2">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Penyakit</th>
+                                                    <th>Persentase</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $no = 1;
+                                                $p_nilai = explode(',', $pasien->array_nilai);
+                                                $p_id = explode(',', $pasien->array_id);
+                                                for ($i = 0; $i < count($p_nilai); $i++) {
+                                                    $name = $this->db->select('nama')->get_where('penyakit', ['id' => $p_id[$i]])->row();
+                                                ?>
+                                                    <tr>
+                                                        <td><?= $no++ ?></td>
+                                                        <td><?= $name->nama ?></td>
+                                                        <td><?= $p_nilai[$i] ?></td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <!-- column -->

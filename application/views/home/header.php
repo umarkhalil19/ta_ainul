@@ -104,7 +104,13 @@
                                 <img src="<?= base_url() ?>assets/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off me-1 ms-1"></i> Login</a>
+                                <?php
+                                if ($this->session->userdata('status') == 'Login') {
+                                    echo '<a class="dropdown-item" href="' . base_url('Login/logout') . '"><i class="fa fa-power-off me-1 ms-1"></i> Log Out</a>';
+                                } else {
+                                    echo '<a class="dropdown-item" href="' . base_url('Login') . '"><i class="fa fa-power-off me-1 ms-1"></i> Login</a>';
+                                }
+                                ?>
                                 <div class="dropdown-divider"></div>
                             </ul>
                         </li>
